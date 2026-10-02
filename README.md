@@ -1,17 +1,17 @@
 # K3s + Cilium Zero Trust — Example Repo
 
-Ví dụ chạy được (reproducible example) cho cụm PoC **K3s 1 node + Cilium**
-(WireGuard, L7, Hubble): default-deny toàn cụm, chỉ cho
-`order-service → payment-service` đúng `POST /v1/charge`.
+Repo này là ví dụ chạy được (reproducible example) cho cụm PoC
+**K3s 1 node + Cilium** (WireGuard, L7, Hubble): default-deny toàn cụm,
+chỉ cho `order-service → payment-service` đúng `POST /v1/charge`.
 
 ## Bắt đầu nhanh
 
-Đọc **[SETUP-WSL2-K3S-CILIUM.md](SETUP-WSL2-K3S-CILIUM.md)** — hướng dẫn từng bước
-trên laptop Windows (Ubuntu WSL2): cài K3s, cài Cilium, deploy demo,
+Bắt đầu từ **[SETUP-WSL2-K3S-CILIUM.md](SETUP-WSL2-K3S-CILIUM.md)** — hướng dẫn từng bước
+trên laptop Windows (Ubuntu WSL2): cài K3s, cài Cilium, chạy demo,
 enforce policy, kiểm chứng.
 
 ```powershell
-# Cài 1 lệnh trong Ubuntu WSL2
+# Cài bằng 1 lệnh trong Ubuntu WSL2
 wsl -d Ubuntu -e bash -lc "bash scripts/install-k3s-cilium.sh"
 ```
 
@@ -36,7 +36,7 @@ policies/
 | Pod không nhãn | timeout (L3/L4 chặn) |
 | `cilium connectivity test` | 78/79 pass |
 
-## Yêu cầu
+## Yêu cầu môi trường
 
-- Windows 11 + WSL2 + Ubuntu (dev) hoặc Ubuntu VPS 4GB (lấy số liệu chuẩn)
+- Windows 11 + WSL2 + Ubuntu (để dev) hoặc Ubuntu VPS 4GB (để lấy số liệu chuẩn)
 - Chi tiết trong [SETUP-WSL2-K3S-CILIUM.md](SETUP-WSL2-K3S-CILIUM.md)
