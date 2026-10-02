@@ -1,0 +1,25 @@
+# Default-deny toàn bộ ingress/egress trong production (baseline Zero Trust).
+# Dùng NetworkPolicy chuẩn (Talon cũng sinh loại này) — semantics chắc chắn.
+# Mở riêng lẻ bằng CiliumNetworkPolicy secure-payment-service-zt.yaml.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: production
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  # Không có ingress rules = deny-all (chỉ chừa DNS ở egress bên dưới).
+  # Giai đoạn staging: comment file này lại, dùng `hubble observe` trước khi enforce.
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - port: 53
+          protocol: UDP
+        - port: 53
+          protocol: TCP

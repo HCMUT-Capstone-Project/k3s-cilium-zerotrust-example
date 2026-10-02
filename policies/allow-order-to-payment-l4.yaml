@@ -1,0 +1,32 @@
+# Chỉ mở EGRESS L4 (order -> payment:8080 + DNS).
+# INGRESS do CiliumNetworkPolicy secure-payment-service-zt.yaml nắm toàn quyền
+# (L4+L7). Nếu mở ingress L4 ở đây, rule L4-only sẽ che rule L7 (OR-semantics)
+# và GET / sẽ lọt (đã đo thực tế ra 200).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-to-payment-l4
+  namespace: production
+spec:
+  podSelector:
+    matchLabels:
+      app: order-service
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: payment-service
+      ports:
+        - port: 8080
+          protocol: TCP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - port: 53
+          protocol: UDP
+        - port: 53
+          protocol: TCP
