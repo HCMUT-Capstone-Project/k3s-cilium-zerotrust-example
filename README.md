@@ -1,9 +1,8 @@
 # K3s + Cilium Zero Trust — Example Repo
 
 Ví dụ chạy được (reproducible example) cho cụm PoC **K3s 1 node + Cilium**
-(WireGuard, L7, Hubble) theo `De-xuat-Cong-nghe-va-Kien-truc-Phong-thu-Chu-dong.md`
-§3.1–§3.2: default-deny toàn cụm, chỉ cho `order-service → payment-service`
-đúng `POST /v1/charge`.
+(WireGuard, L7, Hubble): default-deny toàn cụm, chỉ cho
+`order-service → payment-service` đúng `POST /v1/charge`.
 
 ## Bắt đầu nhanh
 

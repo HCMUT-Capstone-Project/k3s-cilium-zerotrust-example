@@ -2,7 +2,7 @@
 
 Mục tiêu: dựng cụm K3s 1 node trong Ubuntu WSL2, dùng Cilium thay kube-proxy
 (WireGuard + L7 + Hubble) rồi chạy demo `order-service -> payment-service`
-theo đúng `De-xuat-Cong-nghe-va-Kien-truc-Phong-thu-Chu-dong.md` §3.1–§3.2.
+với Zero Trust default-deny: chỉ mở đúng luồng cho phép, còn lại chặn hết.
 
 > eBPF trên kernel WSL2 bị giới hạn so với máy Ubuntu vật lý/VPS.
 > Muốn lấy số liệu chuẩn cho báo cáo (MTTD, connectivity) thì chạy PoC
@@ -43,7 +43,7 @@ wsl -d Ubuntu -e bash -lc "export KUBECONFIG=~/.kube/config; kubectl get nodes -
 wsl -d Ubuntu -e bash -lc "export KUBECONFIG=~/.kube/config; kubectl apply -f /mnt/c/Users/tdanh/Desktop/DACN/src-zerotrust/manifests/00-namespaces.yaml; kubectl apply -f /mnt/c/Users/tdanh/Desktop/DACN/src-zerotrust/manifests/order-payment-demo.yaml; kubectl -n production get pods,svc"
 ```
 
-Đi theo lộ trình staging như docs khuyến nghị: quan sát trước, enforce sau:
+Đi theo lộ trình staging: quan sát trước, enforce sau:
 
 ```powershell
 wsl -d Ubuntu -e bash -lc "export KUBECONFIG=~/.kube/config; cilium connectivity test; hubble observe -n production --follow"

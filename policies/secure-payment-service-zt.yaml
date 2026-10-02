@@ -1,5 +1,4 @@
-# Mẫu chính từ De-xuat-Cong-nghe-va-Kien-truc-Phong-thu-Chu-dong.md §3.2
-# Chỉ cho order-service -> payment-service: POST /v1/charge:8080 (L7).
+# Policy L7: chỉ cho order-service -> payment-service: POST /v1/charge:8080.
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
